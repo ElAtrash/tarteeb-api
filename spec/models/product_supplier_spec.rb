@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: product_suppliers
@@ -25,7 +27,6 @@
 #  fk_rails_...  (product_id => products.id)
 #  fk_rails_...  (supplier_id => suppliers.id)
 #
-require 'rails_helper'
 
 RSpec.describe ProductSupplier, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"

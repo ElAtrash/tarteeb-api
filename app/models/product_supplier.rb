@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: product_suppliers
@@ -29,6 +31,8 @@ class ProductSupplier < ApplicationRecord
   belongs_to :product
   belongs_to :supplier
 
-  enum status: { unavailable: 0, ready: 1, booking: 2 }
-  enum stock_condition: { unknown: 0, loose: 1, master_carton: 2 }
+  enum :status, [ :unavailable, :ready, :booking ], default: :unavailable
+  enum :stock_condition, [ :unknown, :loose, :master_carton ], default: :unknown
+
+  validates :country, :price, :quantity, :status, :stock_condition, presence: true
 end

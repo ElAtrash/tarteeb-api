@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: suppliers
@@ -11,4 +13,6 @@
 class Supplier < ApplicationRecord
   has_many :product_suppliers
   has_many :products, through: :product_suppliers
+
+  validates :name, presence: true
 end

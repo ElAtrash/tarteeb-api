@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: products
@@ -14,4 +16,6 @@
 class Product < ApplicationRecord
   has_many :product_suppliers
   has_many :suppliers, through: :product_suppliers
+
+  validates :brand, :color, :model_label, :memory, presence: true
 end

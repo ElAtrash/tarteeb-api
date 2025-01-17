@@ -1,0 +1,9 @@
+supplier|phone_number|brand|model_label|memory|model_number|color|price|quantity|country|status|stock_condition|location|estimate
+ABC|+12345678|Apple|iPhone 13|128gb|3214|Blue|445|100|Tra|ready|master_carton|edw dafza|10 days
+ABC|+12345678|Apple|iPhone 13|64gb|1432|Midnight|355|180|Tra|ready|master_carton|edw jafza|2-3 days
+ABC|+12345678|Apple|iPhone 13|64gb|1432|Midnight|388|180|Euro|booking|loose|edw hk|15 days
+LMN|+87654321|Apple|iPhone 15 Pro Max|512gb|1342|Natural|1250|200|Euro|ready|loose|edw india|10-17 days
+LMN|+87654321|Apple|iPhone 15 Pro Max|512gb|1324|Blue|1250|100|Euro|booking|master_carton|edw india|2-3 days
+XYZ|+11111111|Apple|iPhone 13|64gb|3421|Green|356|310|Tra|ready|loose|edw hk|2-3 days
+XYZ|+11111111|Apple|iPhone 15 Pro|1tb|2341|White|1395|100|Brazil|booking|master_carton|edw singapore|1 day
+XYZ|+11111111|Apple|iPhone 15 Pro|1tb|1234|Black|1395|120|Brazil|unavailable|master_carton|edw india|12 days

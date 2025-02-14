@@ -34,5 +34,5 @@ class ProductSupplier < ApplicationRecord
   enum :status, [ :unavailable, :ready, :booking ], default: :unavailable
   enum :stock_condition, [ :unknown, :loose, :master_carton ], default: :unknown
 
-  validates :country, :price, :quantity, :status, :stock_condition, presence: true
+  validates :country, :price, :quantity, :status, :stock_condition, :estimate, :location, presence: true
 end

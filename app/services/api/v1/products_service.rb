@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class Api::V1::ProductsService
-  attr_reader :filters, :page, :page_size, :sort_by, :sort_order
-
-  def initialize(filters: {}, page: 1, page_size: 10, sort_by: nil, sort_order: nil)
+  def initialize(filters: {}, sort_by: nil, sort_order: nil, page: 1, page_size: 10)
     @filters = filters
-    @page = page
-    @page_size = page_size
     @sort_by = sort_by
     @sort_order = sort_order
+    @page = page
+    @page_size = page_size
   end
 
   def call
@@ -20,7 +18,7 @@ class Api::V1::ProductsService
   private
 
   def products
-    @products ||= Api::V1::ProductsQuery.new(filters, sort_by, sort_order).call.page(page).per(page_size)
+    @products ||= Api::V1::ProductsQuery.new(@filters, @sort_by, @sort_order).call.page(@page).per(@page_size)
   end
 
   def options

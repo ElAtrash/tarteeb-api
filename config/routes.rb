@@ -12,7 +12,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :products
+      resources :products, only: [ :index ] do
+        collection do
+          post :export
+        end
+      end
       resources :suppliers
       post "csv_imports/import", to: "csv_imports#import"
     end

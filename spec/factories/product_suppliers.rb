@@ -10,6 +10,6 @@ FactoryBot.define do
     price { Faker::Commerce.price }
     quantity { "#{rand(1..500)}" }
     status { "booking" }
-    stock_condition { "loose" }
+    stock_condition { "loose_clean" }
   end
 end

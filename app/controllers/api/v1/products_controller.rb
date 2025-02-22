@@ -4,10 +4,10 @@ class Api::V1::ProductsController < ApplicationController
   def index
     result = Api::V1::ProductsService.new(
       filters: filter_params.to_h,
-      page: params[:page],
-      page_size: params[:pageSize],
       sort_by: params[:sort_by],
-      sort_order: params[:sort_order]
+      sort_order: params[:sort_order],
+      page: params[:page],
+      page_size: params[:page_size]
     ).call
 
     if result.success?
@@ -15,6 +15,14 @@ class Api::V1::ProductsController < ApplicationController
     else
       api_error(result.error)
     end
+  end
+
+  def export
+    excel_data = Api::V1::ProductExcelService.new(filter_params.to_h, params[:sort_by], params[:sort_order]).generate
+
+    send_data excel_data.to_stream.string,
+              filename: "products.xlsx",
+              disposition: "attachment"
   end
 
   private

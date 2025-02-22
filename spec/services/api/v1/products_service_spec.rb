@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 RSpec.describe Api::V1::ProductsService, type: :service do
   let(:filters) { { brand: "Apple" } }
   let(:page) { 1 }

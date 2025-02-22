@@ -31,8 +31,8 @@ class ProductSupplier < ApplicationRecord
   belongs_to :product
   belongs_to :supplier
 
-  enum :status, [ :unavailable, :ready, :booking ], default: :unavailable
-  enum :stock_condition, [ :unknown, :loose, :master_carton ], default: :unknown
+  enum :status, [ :unavailable, :ready, :booking, :incoming ], default: :unavailable
+  enum :stock_condition, [ :unknown, :master_carton, :loose_clean, :loose_dirty ], default: :unknown
 
   validates :country, :price, :quantity, :status, :stock_condition, :estimate, :location, presence: true
 end

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      get "/navigation", to: "navigation#index"
+
       resources :products, only: [ :index ] do
         collection do
           post :export

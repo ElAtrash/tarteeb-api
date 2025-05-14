@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::V1::CsvImportsController, type: :controller do
-  describe "POST #import" do
+RSpec.describe "CSV Imports API", type: :request do
+  let(:user) { create(:user) }
+  let(:headers) { auth_headers(user) }
+
+  describe "POST /api/v1/csv_imports" do
     let(:file_path) { Rails.root.join("spec/fixtures/files/import_products.csv") }
     let(:file) { fixture_file_upload(file_path, "text/csv") }
 
@@ -9,7 +12,7 @@ RSpec.describe Api::V1::CsvImportsController, type: :controller do
       it "calls the CsvImportService and returns a success message" do
         expect(Api::V1::CsvImportService).to receive(:import).with(kind_of(String)).and_return(true)
 
-        post :import, params: { file: file }
+        post "/api/v1/csv_imports/import", params: { file: file }, headers: headers
 
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)).to eq({ "message" => "CSV imported successfully" })
@@ -18,7 +21,7 @@ RSpec.describe Api::V1::CsvImportsController, type: :controller do
 
     context "when no file is uploaded" do
       it "returns an error message" do
-        post :import, params: { file: nil }
+        post "/api/v1/csv_imports/import", params: { file: nil }, headers: headers
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)).to eq({ "error" => "No file uploaded" })
@@ -29,7 +32,7 @@ RSpec.describe Api::V1::CsvImportsController, type: :controller do
       it "returns an error message" do
         allow(Api::V1::CsvImportService).to receive(:import).and_raise(StandardError, "Something went wrong")
 
-        post :import, params: { file: file }
+        post "/api/v1/csv_imports/import", params: { file: file }, headers: headers
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)).to eq({ "error" => "Something went wrong" })

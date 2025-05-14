@@ -10,8 +10,8 @@
 #  location        :string
 #  price           :decimal(10, 2)
 #  quantity        :integer
-#  status          :integer          default(0)
-#  stock_condition :integer          default(0)
+#  status          :integer          default("unavailable")
+#  stock_condition :integer          default("unknown")
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  product_id      :bigint           not null

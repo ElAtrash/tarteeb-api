@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Api::V1::ProductsController, type: :request do
+  let(:user) { create(:user) }
+  let(:headers) { auth_headers(user) }
+
   describe "GET #index" do
     let!(:product1) { create(:product, brand: "Apple", model_label: "iPhone 12", memory: "8GB", color: "White") }
     let!(:product2) { create(:product, brand: "Samsung", model_label: "Galaxy S21", memory: "12GB", color: "Black") }
@@ -17,7 +20,7 @@ RSpec.describe Api::V1::ProductsController, type: :request do
     let(:sort_order) { nil }
 
     subject(:get_request) do
-      get api_v1_products_url, params: { filters: filters, sort_by: sort_by, sort_order: sort_order }
+      get api_v1_products_url, params: { filters: filters, sort_by: sort_by, sort_order: sort_order }, headers: headers
     end
 
     context "with filters" do
@@ -87,6 +90,16 @@ RSpec.describe Api::V1::ProductsController, type: :request do
         end
       end
     end
+
+    context "when user is not authorized" do
+      let(:headers) { {} }
+
+      it "returns 401 Unauthorized" do
+        get_request
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
   end
 
   describe "POST /api/v1/products/export" do
@@ -94,7 +107,7 @@ RSpec.describe Api::V1::ProductsController, type: :request do
 
     context "with valid filters and sorting" do
       it "returns an Excel file with the correct headers and content" do
-        post export_api_v1_products_url, params: { filters: { brand: "Apple" }, sort_by: "price", sort_order: "asc" }
+        post export_api_v1_products_url, params: { filters: { brand: "Apple" }, sort_by: "price", sort_order: "asc" }, headers: headers
 
         aggregate_failures do
           expect(response).to have_http_status(:ok)
